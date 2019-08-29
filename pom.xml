@@ -55,6 +55,13 @@
     </dependencies>
  
     <build>
+    	<finalName>TomDemoSpring</finalName>
+		<resources>
+			<!-- 設定靜態資源的打包路徑 -->
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -68,6 +75,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <finalName>TomDemoSpring</finalName>
+        
     </build>
 </project>
