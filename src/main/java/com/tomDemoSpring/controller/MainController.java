@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -33,4 +34,16 @@ public class MainController {
 	    modelAndView.addObject("responseType", "使用ModelAndView方式回應請求");
 	    return modelAndView;
     }
+	
+	/**
+	 * @see 範例入口ByResponseBody
+	 * @return Map
+	 */
+	@RequestMapping(value="mainActionByResponseBody", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> mainActionByResponseBody(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("responseType", "使用RequestMapping方式回應請求");
+		return map;	
+	}
 }

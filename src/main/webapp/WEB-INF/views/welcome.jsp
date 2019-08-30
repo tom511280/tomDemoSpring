@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html;"
     pageEncoding="utf-8"%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html;">
 <title>HelloWorld page</title>
 </head>
 <body>
-    範例 : ${responseType}
+    <h1>範例 : ${responseType}</h1>
 </body>
 </html>

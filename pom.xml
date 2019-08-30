@@ -9,9 +9,15 @@
         <spring.version>4.2.5.RELEASE</spring.version>
         <slf4j.version>1.7.12</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
+		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+		<javax.servlet.jsp-api.version>2.3.1</javax.servlet.jsp-api.version>
+		<jstl.version>1.2</jstl.version>		
+		<jackson.version>2.8.8</jackson.version>
     </properties>
  
     <dependencies>
+    
+    	<!-- spring相關 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -19,24 +25,24 @@
         </dependency>
         
  
-        <!-- Below declared dependencies are included for the servers who may complain about servlet/jstl missing dependency -->
+        <!-- servlet相關 -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>${javax.servlet-api.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>2.3.1</version>
+            <version>${javax.servlet.jsp-api.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
         
-        <!-- 日志 -->
+        <!-- 日誌相關 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -52,14 +58,70 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
+		
+		<!-- 解析相關 -->
+     	<dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
     </dependencies>
  
+ 	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<profiles.active>test</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>uat</id>
+			<properties>
+				<profiles.active>uat</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>prd</id>
+			<properties>
+				<profiles.active>prd</profiles.active>
+			</properties>
+		</profile>
+	</profiles>
     <build>
     	<finalName>TomDemoSpring</finalName>
 		<resources>
 			<!-- 設定靜態資源的打包路徑 -->
 			<resource>
 				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/*.*</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/${profiles.active}</directory>
+			</resource>
+			<!-- 加入公用mybatis及spring -->
+			<resource>
+				<directory>src/main/resources/common</directory>
 			</resource>
 		</resources>
         <pluginManagement>
@@ -73,6 +135,26 @@
                         <target>1.8</target>
                     </configuration>
                 </plugin>
+				 <!-- 
+				<plugin>  
+					<groupId>org.apache.maven.plugins</groupId>  
+					<artifactId>maven-war-plugin</artifactId>  
+					<configuration>  
+						<warName>${profiles.active}</warName>   
+						<webResources>  
+							<resource>  
+								<filtering>true</filtering>  
+								<directory>src/main/webapp</directory>  
+								<includes>  
+									<include>**/web.xml</include>  
+								</includes>  
+							</resource>  
+						</webResources>  
+						<warSourceDirectory>src/main/webapp</warSourceDirectory>  
+						<webXml>src/main/webapp/WEB-INF/web.xml</webXml>  
+					</configuration>  
+				</plugin>
+				 -->
             </plugins>
         </pluginManagement>
         
