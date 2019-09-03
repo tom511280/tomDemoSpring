@@ -8,5 +8,5 @@
 	<!-- import properties -->
 	<context:property-placeholder location="classpath:properties/*.properties" />
 	<!-- 扫描包 -->
-	<context:component-scan base-package="com.want" />
+	<context:component-scan base-package="com.tomDemoSpring" />
 </beans>
