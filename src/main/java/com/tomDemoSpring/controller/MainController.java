@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tomDemoSpring.service.MainServicebyName;
+import com.tomDemoSpring.service.MainServicebyType;
 
 @Controller
 @RequestMapping("mainController")
@@ -21,6 +22,11 @@ public class MainController {
 	@Autowired
 	@Qualifier(value="test")
 	private MainServicebyName mainServicebyName;
+	
+	@Autowired
+//	@Qualifier(value="MainServicebyType")
+	private MainServicebyType mainServicebyType;
+	
 	
 	/**
 	 * @see 範例入口ByModelMap
@@ -65,6 +71,7 @@ public class MainController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		mainServicebyName.mainFunction();
+		mainServicebyType.mainFunction();
 		
 		map.put("responseType", "測試完成");
 		return map;	
